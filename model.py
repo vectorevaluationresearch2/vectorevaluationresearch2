@@ -33,21 +33,8 @@ class BugDetectionModel(nn.Module):
         cls_output = tok_states[:, 0]
         # print(cls_output.shape)
         pooler = self.dense(cls_output)
-        print(pooler.shape)
 
         return pooler, tok_states
-        pooler = torch.nn.ReLU()(pooler)
-        print(pooler.shape)
-        pooler = self.dropout(pooler)
-        print(pooler.shape)
-        cls_pooler = self.out_proj(pooler)
-        print(cls_pooler.shape)
-
-        if labels is not None:
-            return cls_pooler, tok_states
-        else:
-            prob = torch.softmax(cls_pooler, -1)
-            return prob
 
 
 class Fcs(nn.Module):
@@ -62,15 +49,15 @@ class Fcs(nn.Module):
 
     def forward(self, input_):
         pooler = self.dense2(input_)
-        print(pooler.shape)
+        # print(pooler.shape)
         pooler = self.dense(pooler)
-        print(pooler.shape)
+        # print(pooler.shape)
         pooler = torch.nn.ReLU()(pooler)
-        print(pooler.shape)
+        # print(pooler.shape)
         pooler = self.dropout(pooler)
-        print(pooler.shape)
+        # print(pooler.shape)
         cls_pooler = self.out_proj(pooler)
-        print(cls_pooler.shape)
+        # print(cls_pooler.shape)
 
         return cls_pooler
 
